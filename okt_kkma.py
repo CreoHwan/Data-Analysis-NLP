@@ -182,3 +182,45 @@ final_kkma_sort = final_kkma.most_common(10)
 #most_common() 내림차순으로 정렬한다.()안의 숫자는 상위 몇개를 추출할것인지에 해당
 final_kkma_sort_dic = dict(final_kkma_sort)
 
+
+Eight = '워드 클라우드를 활용하여 명사의 빈도수 시각화'
+# 불용어가 제거된 okt.nouns()를 대상으로 명사의 빈도수를 워드클라우드로 시각화하기
+
+# okt
+from wordcloud import WordCloud  
+wordcloud = WordCloud(font_path="c:/windows/fonts/H2GSRB.TTF" ,relative_scaling='auto',background_color='white').generate_from_frequencies(final_okt_sort_dic)  #딕셔너리 데이터의 값을 기반으로 워드클라우드를 생성한다.
+
+import matplotlib.pyplot as plt 
+plt.rcParams["figure.figsize"] = (14,4) 
+plt.rcParams['axes.grid'] = False #또는 True
+print(final_okt_sort_dic)
+fig = plt.figure()
+print("이미지 크기 : ", fig)
+plt.imshow(wordcloud)
+plt.axis('off')
+
+# kkma
+wordcloud = WordCloud(font_path="c:/windows/fonts/HMFMMUEX.TTC", relative_scaling='auto', background_color='yellow').generate_from_frequencies(final_kkma_sort_dic)
+print(final_kkma_sort_dic)
+fig = plt.figure()
+print("이미지 크기 : ", fig)
+plt.imshow(wordcloud)
+plt.axis('off')
+
+
+
+# 그림과 함께 출력
+import numpy as np
+from PIL import Image
+
+wine = np.array(Image.open("KOREAN_TEXT/wine.jpg")) 
+
+wordcloud = WordCloud(font_path='c:/windows/fonts/HMFMMUEX.TTC', mask = wine, contour_width=1, contour_color='black',background_color='white',relative_scaling = 0.5).generate_from_frequencies(final_kkma_sort_dic)
+
+plt.rcParams["figure.figsize"] = (23,8)
+plt.rcParams['axes.grid'] = False
+
+fig = plt.figure()
+print("이미지 크기 : ", fig)
+plt.imshow(wordcloud) 
+plt.axis('off') 
